@@ -20,6 +20,7 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         // Example to include another Renderview for Pause Button
+        RenderBackground.Create();
     }
 
     @Override
@@ -42,8 +43,8 @@ public class MainGameSceneState implements StateBase {
 
         if (TouchManager.Instance.IsDown()) {
 			
-            //Example of touch on screen in the main game to trigger back to Main menu
-            StateManager.Instance.ChangeState("Mainmenu");
+            // Example of touch on screen in the main game to trigger back to Main menu
+            // StateManager.Instance.ChangeState("Mainmenu");
         }
     }
 }
