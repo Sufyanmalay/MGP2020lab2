@@ -75,6 +75,7 @@
             </intent-filter>
         </activity>
 
+        <!-- Game Screen -->
         <activity
             android:name=".GamePage"
             android:screenOrientation="landscape">
