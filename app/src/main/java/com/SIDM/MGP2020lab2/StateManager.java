@@ -29,6 +29,15 @@ public class StateManager {
         view = _view;
     }
 
+    /*@Override
+    public void OnEnter(SurfaceView _view)
+    {
+        RenderBackground.Create();
+        //RenderTextEntity.Create();
+        EntityPlayer.Create();
+        //PauseButton.Create();
+    }*/
+
     void AddState(StateBase _newState)
     {
         // Add the state into the state map
