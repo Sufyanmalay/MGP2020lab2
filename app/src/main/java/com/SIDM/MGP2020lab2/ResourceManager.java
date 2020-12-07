@@ -1,4 +1,5 @@
 package com.SIDM.MGP2020lab2;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

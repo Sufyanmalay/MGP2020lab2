@@ -18,6 +18,7 @@ public class EntityPlayer implements EntityBase, Collidable
     private float xPos, yPos;
     private boolean isInit = false;
     private int renderLayer = 0;
+    private Sprite spritesheet = null;
 
     private boolean hasTouched = false;
 
@@ -36,31 +37,39 @@ public class EntityPlayer implements EntityBase, Collidable
     @Override
     public void Init(SurfaceView _view)
     {
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_4);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_4); // works
+        //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
+        spritesheet = new Sprite(bmp, 1, 1, 30);
+        xPos = 0;
+        yPos = 0;
         isInit = true;
     }
 
     @Override
     public void Update(float _dt)
     {
-        //if (TouchManager.Instance.HasTouch())
-       // {
-            //Bitmap spritesheet = bmp;
-            //float imgRadius = spritesheet.GetWidth() * 0.5f;
-            //if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius) || hasTouched )
-            //{
-                //hasTouched = true;
+        spritesheet.Update(_dt);
+        xPos = 525;
+        yPos = 525;
+        //lifeTime -= _dt;
+        /*if (TouchManager.Instance.HasTouch())
+        {
+            float imgRadius = spritesheet.GetWidth() * 0.5f;
+            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius) || hasTouched )
+            {
+                hasTouched = true;
 
-              //  xPos = TouchManager.Instance.GetPosX();
-              //  yPos = TouchManager.Instance.GetPosY();
-            //}
-        //}
+                xPos = TouchManager.Instance.GetPosX();
+                yPos = TouchManager.Instance.GetPosY();
+            }
+        }*/
     }
 
      @Override
     public void Render(Canvas _canvas)
      {
          _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+         spritesheet.Render(_canvas, (int)xPos, (int)yPos);
      }
 
     @Override

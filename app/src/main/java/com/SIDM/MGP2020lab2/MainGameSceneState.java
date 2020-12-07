@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
     private RenderTextEntity renderTextEntity;
+    private EntityPlayer Player;
 
     @Override
     public String GetName() {
@@ -22,6 +23,7 @@ public class MainGameSceneState implements StateBase {
     {
         // Example to include another Renderview for Pause Button
         RenderBackground.Create();
+        EntityPlayer.Create();
         renderTextEntity = RenderTextEntity.Create();
         PauseButton.Create();
     }
@@ -30,6 +32,7 @@ public class MainGameSceneState implements StateBase {
     public void OnExit() {
         EntityManager.Instance.Clean();
         GamePage.Instance.finish();
+        //EntityPlayer.;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MainGameSceneState implements StateBase {
 
         EntityManager.Instance.Update(_dt);
         renderTextEntity.Update(_dt);
-
+        //Player.Update(_dt);
         if (TouchManager.Instance.IsDown()) {
 			
             // Example of touch on screen in the main game to trigger back to Main menu
