@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class TrashEntity implements EntityBase , Collidable {
+public class EntityTrash implements EntityBase , Collidable {
     private Sprite spriteSheet = null;
     private boolean isDone = false;
 
@@ -111,16 +111,16 @@ public class TrashEntity implements EntityBase , Collidable {
 
     public void SetChosenLane(int index) {chosenLane = index;}
 
-    public static TrashEntity Create()
+    public static EntityTrash Create()
     {
-        TrashEntity result = new TrashEntity();
+        EntityTrash result = new EntityTrash();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_TRASH);
         return result;
     }
 
-    public static TrashEntity Create(int _Layer, int index)
+    public static EntityTrash Create(int _Layer, int index)
     {
-        TrashEntity result = Create();
+        EntityTrash result = Create();
         result.SetRenderLayer(_Layer);
         result.SetChosenLane(index);
         return result;

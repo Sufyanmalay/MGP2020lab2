@@ -14,6 +14,7 @@ public interface EntityBase
         ENT_PAUSE,
          ENT_PLAYER,
          ENT_TRASH,
+         ENT_WALL,
         //ENT_TEXT,
         //ENT_NEXT,
         ENT_DEFAULT,
