@@ -67,9 +67,14 @@ public class EntityPlayer implements EntityBase, Collidable
             yPos = 775;
         }
         xPos = 525;
-
-        if (TouchManager.Instance.IsDown())
+        if (!TouchManager.Instance.IsDown())
         {
+            hasTouched = false;
+        }
+
+        if (TouchManager.Instance.IsDown() && !hasTouched)
+        {
+            hasTouched = true;
             /*float imgRadius = spritesheet.GetWidth() * 0.5f;
             if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius) || hasTouched )
             {
@@ -78,39 +83,52 @@ public class EntityPlayer implements EntityBase, Collidable
                 xPos = TouchManager.Instance.GetPosX();
                 yPos = TouchManager.Instance.GetPosY();
             }*/
-            if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
+            if (hasTouched)
             {
-                if (TouchManager.Instance.GetPosY() >= 0 && TouchManager.Instance.GetPosY() <= 525)
+                if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
                 {
-                    if (position == 2)
+                    if (TouchManager.Instance.GetPosY() >= 0 && TouchManager.Instance.GetPosY() <= 525)
                     {
-                        position = 1;
+                        changeUp();
                     }
-                    else if (position == 3)
+                    else if (TouchManager.Instance.GetPosY() > 525 && TouchManager.Instance.GetPosY() <= 1000)
                     {
-                        position = 2;
-                    }
-                    else
-                    {
-                        position = 1;
-                    }
-                }
-                else if (TouchManager.Instance.GetPosY() > 525 && TouchManager.Instance.GetPosY() <= 1000)
-                {
-                    if (position == 2)
-                    {
-                        position = 3;
-                    }
-                    else if (position == 1)
-                    {
-                        position = 2;
-                    }
-                    else
-                    {
-                        position = 3;
+                        changeDown();
                     }
                 }
             }
+        }
+    }
+
+    public void changeUp()
+    {
+        if (position == 2)
+        {
+            position = 1;
+        }
+        else if (position == 3)
+        {
+            position = 2;
+        }
+        else
+        {
+            position = 1;
+        }
+    }
+
+    public void changeDown()
+    {
+        if (position == 2)
+        {
+            position = 3;
+        }
+        else if (position == 1)
+        {
+            position = 2;
+        }
+        else
+        {
+            position = 3;
         }
     }
 
