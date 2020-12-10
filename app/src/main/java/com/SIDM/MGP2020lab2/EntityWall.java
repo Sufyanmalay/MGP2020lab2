@@ -15,7 +15,7 @@ public class EntityWall implements EntityBase , Collidable {
     private int chosenLane, screenWidth, screenHeight;
     private float xPos;
     private float yPos;
-    private float xBaseSpeed = 225.f;
+    private float xBaseSpeed = 400.f;
 
     private boolean isInit = false;
 
@@ -47,14 +47,17 @@ public class EntityWall implements EntityBase , Collidable {
         scaledBmp = Bitmap.createScaledBitmap(bmp, (int)(screenWidth) / 16, (int)(screenHeight) / 2, true);
         spriteSheet = new Sprite(bmp, 2, 1, 4);
 
+        // Top Lane
         if (chosenLane == 0)
         {
             yPos = screenHeight / 3.f - 175.f;
         }
+        // Mid Lane
         else if (chosenLane == 1)
         {
             yPos = screenHeight / 3.f * 2.f - 175.f;
         }
+        // Bot Lane
         else if (chosenLane == 2)
         {
             yPos = screenHeight / 3.f * 3.f - 175.f;
@@ -68,9 +71,10 @@ public class EntityWall implements EntityBase , Collidable {
     @Override
     public void Update (float _dt)
     {
-        //spriteSheet.Update(_dt);
-        xPos -=  xBaseSpeed * _dt; //speed is randomized
-        if(xPos > screenWidth) //1794 is the screen height
+        xPos -=  xBaseSpeed * _dt;
+
+        // Delete offscreen
+        if(xPos > screenWidth)
         {
             SetIsDone(true);
         }
@@ -81,6 +85,7 @@ public class EntityWall implements EntityBase , Collidable {
     public void Render (Canvas _canvas)
     {
         _canvas.drawBitmap(scaledBmp, xPos - scaledBmp.getWidth() * 0.5f, yPos - scaledBmp.getHeight() * 0.5f, null);
+        //spriteSheet.Render(_canvas, (int) (xPos - scaledBmp.getWidth() * 0.5f), (int)(yPos - scaledBmp.getHeight() * 0.5f));
     }
 
     @Override

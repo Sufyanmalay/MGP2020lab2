@@ -66,26 +66,16 @@ public class PauseButton implements EntityBase
                 {
                     Paused = true;
 
-                    //Option 1: Use your alert dialog to ask user if they want to pause
-                    //Button is clicked, show the popup
-                    //if (PauseConfirmDialogFragment.IsShown)
-                    //    return;
-
                     if (PauseConfirmDialogFragment.IsShown)
                         return;
 
-                    PauseConfirmDialogFragment newPauseConfirm = new PauseConfirmDialogFragment();
-                    newPauseConfirm.show(GamePage.Instance.getFragmentManager(), "");
-
-
-                    //Option 2: Don't have the alert dialog, just pause straight away
-                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                    PauseConfirmDialogFragment PauseBox = new PauseConfirmDialogFragment();
+                    PauseBox.show(GamePage.Instance.getFragmentManager(), "Pause Screen");
                 }
             }
         }
         else
             Paused = false;
-        //Do more handling of your cases... add more code here...
     }
 
     @Override

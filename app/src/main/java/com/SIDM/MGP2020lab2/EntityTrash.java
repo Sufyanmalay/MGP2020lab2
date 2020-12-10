@@ -15,7 +15,7 @@ public class EntityTrash implements EntityBase , Collidable {
     private int chosenLane, screenWidth, screenHeight;
     private float xPos;
     private float yPos;
-    private float xBaseSpeed = 20.f;
+    private float xBaseSpeed = 80.f;
     private float speedMultiplier;
 
     Random ranGen = new Random();
