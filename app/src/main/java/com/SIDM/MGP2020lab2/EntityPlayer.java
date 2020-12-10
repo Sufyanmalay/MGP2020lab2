@@ -3,6 +3,8 @@ package com.SIDM.MGP2020lab2;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
 import android.view.SurfaceView;
 import android.util.DisplayMetrics;
 import android.graphics.Typeface;
@@ -22,6 +24,8 @@ public class EntityPlayer implements EntityBase, Collidable
 
     private boolean hasTouched = false;
 
+    private int position = 0;
+
     @Override
     public boolean IsDone()
     {
@@ -37,11 +41,12 @@ public class EntityPlayer implements EntityBase, Collidable
     @Override
     public void Init(SurfaceView _view)
     {
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ship2_4); // works
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player_character); // works
         //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
-        spritesheet = new Sprite(bmp, 1, 1, 30);
-        xPos = 0;
-        yPos = 0;
+        spritesheet = new Sprite(bmp, 2, 5, 30);
+        xPos = 525;
+        yPos = 525;
+        position = 2;
         isInit = true;
     }
 
@@ -49,26 +54,88 @@ public class EntityPlayer implements EntityBase, Collidable
     public void Update(float _dt)
     {
         spritesheet.Update(_dt);
-        xPos = 525;
-        yPos = 525;
-        //lifeTime -= _dt;
-        /*if (TouchManager.Instance.HasTouch())
+        if (position == 1)
         {
-            float imgRadius = spritesheet.GetWidth() * 0.5f;
+            yPos = 250;
+        }
+        else if (position == 2)
+        {
+            yPos = 525;
+        }
+        else if (position == 3)
+        {
+            yPos = 775;
+        }
+        xPos = 525;
+        if (!TouchManager.Instance.IsDown())
+        {
+            hasTouched = false;
+        }
+
+        if (TouchManager.Instance.IsDown() && !hasTouched)
+        {
+            hasTouched = true;
+            /*float imgRadius = spritesheet.GetWidth() * 0.5f;
             if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius) || hasTouched )
             {
                 hasTouched = true;
 
                 xPos = TouchManager.Instance.GetPosX();
                 yPos = TouchManager.Instance.GetPosY();
+            }*/
+            if (hasTouched)
+            {
+                if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
+                {
+                    if (TouchManager.Instance.GetPosY() >= 0 && TouchManager.Instance.GetPosY() <= 525)
+                    {
+                        changeUp();
+                    }
+                    else if (TouchManager.Instance.GetPosY() > 525 && TouchManager.Instance.GetPosY() <= 1000)
+                    {
+                        changeDown();
+                    }
+                }
             }
-        }*/
+        }
+    }
+
+    public void changeUp()
+    {
+        if (position == 2)
+        {
+            position = 1;
+        }
+        else if (position == 3)
+        {
+            position = 2;
+        }
+        else
+        {
+            position = 1;
+        }
+    }
+
+    public void changeDown()
+    {
+        if (position == 2)
+        {
+            position = 3;
+        }
+        else if (position == 1)
+        {
+            position = 2;
+        }
+        else
+        {
+            position = 3;
+        }
     }
 
      @Override
     public void Render(Canvas _canvas)
      {
-         _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+         //_canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
          spritesheet.Render(_canvas, (int)xPos, (int)yPos);
      }
 

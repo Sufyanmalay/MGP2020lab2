@@ -71,8 +71,7 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
     }
 
     @Override
-    public void Update(float _dt) {
-    }
+    public void Update(float _dt) { }
 
     @Override
     public String GetName() {

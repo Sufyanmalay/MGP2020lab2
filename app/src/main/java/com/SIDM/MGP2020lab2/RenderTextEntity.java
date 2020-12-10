@@ -46,7 +46,8 @@ public class RenderTextEntity implements EntityBase{
     }
 
     @Override
-    public void Update(float _dt) {
+    public void Update(float _dt)
+    {
 
         // get actual fps and print fps on screen
         frameCount++;
