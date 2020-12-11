@@ -21,6 +21,9 @@ public class EntityPlayer implements EntityBase, Collidable
     private boolean isInit = false;
     private int renderLayer = 0;
     private Sprite spritesheet = null;
+    private int screenHeight;
+    //public int lives;
+    //MainGameSceneState mainGameSceneState = null;
 
     private boolean hasTouched = false;
 
@@ -43,11 +46,14 @@ public class EntityPlayer implements EntityBase, Collidable
     {
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player_character); // works
         //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
-        spritesheet = new Sprite(bmp, 2, 5, 30);
+        spritesheet = new Sprite(bmp, 4, 5, 30);
         xPos = 525;
         yPos = 525;
         position = 2;
         isInit = true;
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        screenHeight = metrics.heightPixels;
+        //lives = 3;
     }
 
     @Override
@@ -56,15 +62,15 @@ public class EntityPlayer implements EntityBase, Collidable
         spritesheet.Update(_dt);
         if (position == 1)
         {
-            yPos = 250;
+            yPos = screenHeight / 3.f - 175.f;
         }
         else if (position == 2)
         {
-            yPos = 525;
+            yPos = screenHeight / 3.f * 2.f - 175.f;
         }
         else if (position == 3)
         {
-            yPos = 775;
+            yPos = screenHeight / 3.f * 3.f - 175.f;
         }
         xPos = 525;
         if (!TouchManager.Instance.IsDown())
@@ -75,14 +81,6 @@ public class EntityPlayer implements EntityBase, Collidable
         if (TouchManager.Instance.IsDown() && !hasTouched)
         {
             hasTouched = true;
-            /*float imgRadius = spritesheet.GetWidth() * 0.5f;
-            if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius) || hasTouched )
-            {
-                hasTouched = true;
-
-                xPos = TouchManager.Instance.GetPosX();
-                yPos = TouchManager.Instance.GetPosY();
-            }*/
             if (hasTouched)
             {
                 if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
@@ -203,9 +201,14 @@ public class EntityPlayer implements EntityBase, Collidable
     @Override
     public void OnHit(Collidable _other)
     {
-        if (_other.GetType() == "NextEntity")
+        if (_other.GetType() == "WallEntity")
         {
-            SetIsDone(true);
+            MainGameSceneState.playerLives--;
+            //lives--;
+            if (MainGameSceneState.playerLives <= 0)
+            {
+                SetIsDone(true);
+            }
         }
     }
 }

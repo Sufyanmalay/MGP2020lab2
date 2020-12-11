@@ -11,7 +11,7 @@ public class MainGameSceneState implements StateBase {
     private float timer = 0.0f;
     private float trashTimer = 0.0f;
     private float wallTimer = 0.0f;
-
+    public static int playerLives = 3;
 
     private int[] wallArray = {0, 0, 0};
     private float wallSpawnRate = 5.f;
