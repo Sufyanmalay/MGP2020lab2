@@ -12,6 +12,7 @@ public class MainGameSceneState implements StateBase {
     private float trashTimer = 0.0f;
     private float wallTimer = 0.0f;
     public static int playerLives = 3;
+    public static int Trash_Score = 0;
 
     private int[] wallArray = {0, 0, 0};
     private float wallSpawnRate = 5.f;
@@ -40,6 +41,7 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create();
         EntityPlayer.Create();
         PauseButton.Create();
+        EndState.Create();
 
         renderTextEntity = RenderTextEntity.Create();
     }
@@ -63,7 +65,7 @@ public class MainGameSceneState implements StateBase {
         wallTimer += _dt;
 
         // Pause the game
-        if (GameSystem.Instance.GetIsPaused())
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())
             return;
 
         // Spawning of trash

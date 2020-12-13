@@ -155,6 +155,7 @@ public class EntityTrash implements EntityBase , Collidable {
     {
         if(_other.GetType() == "PlayerEntity")
         {
+            MainGameSceneState.Trash_Score++;
             SetIsDone(true);
         }
     }
