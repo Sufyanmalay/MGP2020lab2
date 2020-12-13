@@ -15,10 +15,9 @@ public class EntityTrash implements EntityBase , Collidable {
     private int chosenLane, screenWidth, screenHeight;
     private float xPos;
     private float yPos;
-    private float xBaseSpeed = 80.f;
-    private float speedMultiplier;
 
-    Random ranGen = new Random();
+    public static float xBaseSpeed = 200.f;
+    public static float xSpeed = xBaseSpeed;
 
     private boolean isInit = false;
 
@@ -40,7 +39,6 @@ public class EntityTrash implements EntityBase , Collidable {
 
     @Override
     public void Init(SurfaceView _view){
-        speedMultiplier = ranGen.nextInt(7) + 3.f; //Randomize speed for coins between 3 to 10
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.trash);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -72,8 +70,9 @@ public class EntityTrash implements EntityBase , Collidable {
     public void Update (float _dt)
     {
         spriteSheet.Update(_dt);
-        xPos -=  xBaseSpeed * _dt * speedMultiplier; //speed is randomized
-        if(xPos > screenWidth) //1794 is the screen height
+
+        xPos -=  xSpeed * _dt;
+        if(xPos > screenWidth)
         {
             SetIsDone(true);
         }
