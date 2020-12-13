@@ -66,10 +66,10 @@ public class PauseButton implements EntityBase
                 {
                     Paused = true;
 
-                    if (PauseConfirmDialogFragment.IsShown)
+                    if (PauseDialogFragment.IsShown)
                         return;
 
-                    PauseConfirmDialogFragment PauseBox = new PauseConfirmDialogFragment();
+                    PauseDialogFragment PauseBox = new PauseDialogFragment();
                     PauseBox.show(GamePage.Instance.getFragmentManager(), "Pause Screen");
                 }
             }

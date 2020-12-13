@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.content.Intent;
 
 
-public class PauseConfirmDialogFragment extends DialogFragment {
+public class PauseDialogFragment extends DialogFragment {
     public static boolean IsShown = false;
 
     @Override
@@ -17,10 +17,7 @@ public class PauseConfirmDialogFragment extends DialogFragment {
     {
         IsShown = true;
 
-        Intent intent = new Intent();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Pause Screen");
         builder.setMessage("Resume game or exit to main menu?");
         builder.setNegativeButton("Resume", new DialogInterface.OnClickListener()
             {

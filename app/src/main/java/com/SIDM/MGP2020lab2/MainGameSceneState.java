@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class MainGameSceneState implements StateBase {
     public static float rampUpTimer = 0.0f;
-    public static float rampUpMax = 2.f;
+    public static float rampUpMax = 5.f;
 
     private float trashTimer = 0.0f;
     private float wallTimer = 0.0f;
@@ -35,11 +35,8 @@ public class MainGameSceneState implements StateBase {
 
     private int laneNumber = 0;
 
-    public static int playerLives = 3;
-    public static int playerScore = 0;
-
     private float regenTimer = 0.0f;
-    private float regenTimerMax = 5.0f;
+    private float regenTimerMax = 10.0f;
 
     private Bitmap bmpLives = null;
     private int screenWidth, screenHeight;
@@ -139,15 +136,19 @@ public class MainGameSceneState implements StateBase {
         wallTimer += _dt;
         rampUpTimer += _dt;
 
+        // Life Regen
         if (regenTimer >= regenTimerMax)
         {
             playerLives += 1;
             regenTimer = 0.f;
         }
+
+        // Ramp Up the game
+        // Increase speed of the game
         if (rampUpTimer >= rampUpMax)
         {
             if (wallSpawnRate > 1.f)
-                wallSpawnRate -= 0.5f;
+                wallSpawnRate -= 1.f;
 
             if (EntityWall.xSpeed <= 800.f)
             {
