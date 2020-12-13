@@ -12,6 +12,7 @@ public interface EntityBase
         ENT_BACKGROUND,
         ENT_TEXT,
         ENT_PAUSE,
+         ENT_END,
          ENT_PLAYER,
          ENT_TRASH,
          ENT_WALL,
