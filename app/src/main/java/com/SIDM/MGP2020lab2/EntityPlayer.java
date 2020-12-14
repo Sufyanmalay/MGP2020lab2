@@ -218,7 +218,7 @@ public class EntityPlayer implements EntityBase, Collidable
         }
         else if (_other.GetType() == "TrashEntity")
         {
-            MainGameSceneState.playerScore += 10;
+            MainGameSceneState.playerScore += 2;
         }
     }
 }

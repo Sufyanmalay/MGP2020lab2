@@ -25,7 +25,7 @@ public class MainGameSceneState implements StateBase {
     public static int playerScore = 0;
 
     private int[] wallArray = {0, 0, 0};
-    public static float wallBaseSpawnRate = 5.f;
+    public static float wallBaseSpawnRate = 3.f;
     public static float wallSpawnRate = wallBaseSpawnRate;
     private int tmpWall = 0;
 
@@ -67,7 +67,7 @@ public class MainGameSceneState implements StateBase {
         screenWidth = metrics.widthPixels;
         screenHeight = metrics.heightPixels;
 
-        // lifes icons
+        // live icons
         bmpLives = BitmapFactory.decodeResource(_view.getResources(), R.drawable.live);
         bmpLives = Bitmap.createScaledBitmap(bmpLives, (int)(screenWidth) / 12, (int)(screenHeight) / 7, false);
 
@@ -87,13 +87,14 @@ public class MainGameSceneState implements StateBase {
     {
         EntityManager.Instance.Render(_canvas);
 
-        // Score Display
+        // Score counter
         Paint scoreCount = new Paint();
         scoreCount.setARGB(255, 0, 255, 0);
         scoreCount.setStrokeWidth(150);
         scoreCount.setTypeface(myFont);
         scoreCount.setTextSize(100);
 
+        // "Score" Text
         Paint scoreDisplay = new Paint();
         scoreDisplay.setARGB(255, 0, 255, 0);
         scoreDisplay.setStrokeWidth(200);
@@ -101,20 +102,11 @@ public class MainGameSceneState implements StateBase {
         scoreDisplay.setTextSize(100);
         String text = "Score: ";
 
-        if (playerScore < 10) {
-            _canvas.drawText(text, screenWidth - 500.f, screenHeight - 200, scoreDisplay);
-            _canvas.drawText(String.valueOf(playerScore), screenWidth - 190.f, screenHeight - 200, scoreCount);
-        }
-        else if (playerScore < 100) {
-            _canvas.drawText(text, screenWidth - 500.f, screenHeight - 200, scoreDisplay);
-            _canvas.drawText(String.valueOf(playerScore), screenWidth - 200.f, screenHeight - 200, scoreCount);
-        }
-        else {
-            _canvas.drawText(text, screenWidth - 500.f, screenHeight - 200, scoreDisplay);
-            _canvas.drawText(String.valueOf(playerScore), screenWidth - 210.f, screenHeight - 200, scoreCount);
-        }
+        // Score UI
+        _canvas.drawText(text, screenWidth / 2 - 200.f, 200, scoreDisplay);
+        _canvas.drawText(String.valueOf(playerScore), screenWidth / 2 + 50.f,  200, scoreCount);
 
-        // Lives icon
+        // Lives UI
         for (int i = 0; i < playerLives; ++i)
         {
             _canvas.drawBitmap(bmpLives, screenWidth - 200.f - (i * 175.f), screenHeight - 200.f,null);
@@ -156,11 +148,11 @@ public class MainGameSceneState implements StateBase {
             }
             if (RenderBackground.speed <= 800.f)
             {
-                RenderBackground.speed += 50.f;
+                RenderBackground.speed += 100.f;
             }
             if (EntityTrash.xSpeed <= 800.f)
             {
-                EntityTrash.xSpeed += 50.f;
+                EntityTrash.xSpeed += 100.f;
             }
 
             rampUpTimer = 0.f;
@@ -248,10 +240,6 @@ public class MainGameSceneState implements StateBase {
 
         EntityManager.Instance.Update(_dt);
         renderTextEntity.Update(_dt);
-
-        if (TouchManager.Instance.IsDown()) {
-
-        }
     }
 }
 
