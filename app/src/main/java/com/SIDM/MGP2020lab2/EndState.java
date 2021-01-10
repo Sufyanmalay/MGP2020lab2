@@ -56,6 +56,7 @@ public class EndState implements EntityBase
     {
         if (MainGameSceneState.playerLives <= 0)
         {
+            AudioManager.Instance.PlayAudio(R.raw.end, 1.0f, 1.0f); // end sound
             if (!Paused)
             {
                 Paused = true;

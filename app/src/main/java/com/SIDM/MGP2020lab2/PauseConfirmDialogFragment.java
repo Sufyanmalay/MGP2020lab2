@@ -27,6 +27,7 @@ public class PauseConfirmDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
+                    AudioManager.Instance.PlayAudio(R.raw.buttontwo, 1.0f, 1.0f); // button sound
                     // Resume the game
                     GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                 }
@@ -38,6 +39,8 @@ public class PauseConfirmDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
+                    AudioManager.Instance.StopAudio(R.raw.music); // stop music
+                    AudioManager.Instance.PlayAudio(R.raw.buttontwo, 1.0f, 1.0f); // button sound
                     StateManager.Instance.ChangeState("Mainmenu");
                 }
             }

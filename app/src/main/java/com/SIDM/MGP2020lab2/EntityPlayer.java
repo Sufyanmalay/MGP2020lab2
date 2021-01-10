@@ -85,6 +85,7 @@ public class EntityPlayer implements EntityBase, Collidable
             {
                 if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
                 {
+                    AudioManager.Instance.PlayAudio(R.raw.move, 1.0f, 1.0f); // move sound
                     if (TouchManager.Instance.GetPosY() >= 0 && TouchManager.Instance.GetPosY() <= 525)
                     {
                         changeUp();

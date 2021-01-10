@@ -44,6 +44,8 @@ public class MainGameSceneState implements StateBase {
         EndState.Create();
 
         renderTextEntity = RenderTextEntity.Create();
+
+        AudioManager.Instance.PlayAudio(R.raw.music, 1.0f, 1.0f); // play music when game start
     }
 
     @Override
@@ -66,7 +68,14 @@ public class MainGameSceneState implements StateBase {
 
         // Pause the game
         if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())
+        {
+            AudioManager.Instance.ChangeVolume(R.raw.music, 0.1f, 0.1f); // decrease vol of music while paused
             return;
+        }
+        else
+        {
+            AudioManager.Instance.ChangeVolume(R.raw.music, 1.0f, 1.0f); // increase vol of music while paused
+        }
 
         // Spawning of trash
         if (trashTimer > trashSpawnRate)

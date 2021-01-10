@@ -155,8 +155,10 @@ public class EntityTrash implements EntityBase , Collidable {
     {
         if(_other.GetType() == "PlayerEntity")
         {
+            AudioManager.Instance.PlayAudio(R.raw.trashcollect, 1.0f, 1.0f); // trash collect sound
             MainGameSceneState.Trash_Score++;
             SetIsDone(true);
         }
+
     }
 }

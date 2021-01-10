@@ -27,6 +27,8 @@ public class EndConfirmDialogFragment extends DialogFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        AudioManager.Instance.StopAudio(R.raw.music); // end music
+                        AudioManager.Instance.PlayAudio(R.raw.buttontwo, 1.0f, 1.0f); // button sound
                         StateManager.Instance.ChangeState("Mainmenu");
                     }
                 }

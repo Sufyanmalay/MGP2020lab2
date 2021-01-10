@@ -64,6 +64,7 @@ public class PauseButton implements EntityBase
 
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.0f, xPos, yPos, imgRadius))
                 {
+                    AudioManager.Instance.PlayAudio(R.raw.buttonone, 1.0f, 1.0f); // button sound
                     Paused = true;
 
                     if (PauseConfirmDialogFragment.IsShown)

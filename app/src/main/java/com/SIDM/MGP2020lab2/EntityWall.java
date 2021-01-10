@@ -8,7 +8,7 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class EntityWall implements EntityBase , Collidable {
+public class EntityWall implements EntityBase, Collidable {
     private Sprite spriteSheet = null;
     private boolean isDone = false;
 
@@ -157,6 +157,7 @@ public class EntityWall implements EntityBase , Collidable {
     {
         if(_other.GetType() == "PlayerEntity")
         {
+            AudioManager.Instance.PlayAudio(R.raw.wallhitt, 1.0f, 1.0f); // collision sound
             SetIsDone(true);
         }
     }
