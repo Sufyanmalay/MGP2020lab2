@@ -35,8 +35,8 @@ public class MainGameSceneState implements StateBase {
 
     private int laneNumber = 0;
 
-    public static int playerLives = 3;
-    public static int playerScore = 0;
+    //public static int playerLives = 3;
+    //public static int playerScore = 0;
 
     private float regenTimer = 0.0f;
     private float regenTimerMax = 5.0f;

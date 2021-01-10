@@ -20,7 +20,7 @@ public class EndConfirmDialogFragment extends DialogFragment
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("End Screen");
-        builder.setMessage("You Died! Your Final Score is : " + MainGameSceneState.Trash_Score);
+        builder.setMessage("You Died! Your Final Score is : " + MainGameSceneState.playerScore);
 
         builder.setPositiveButton("Exit Game", new DialogInterface.OnClickListener()
                 {
