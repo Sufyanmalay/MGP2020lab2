@@ -12,6 +12,8 @@ public class RenderBackground implements EntityBase{
     private Bitmap bmp = null;
     private boolean isDone = false;
     private float xPos, yPos = 0;
+    public static float baseSpeed = 500.f;
+    public static float speed = baseSpeed;
 
     int ScreenWidth, ScreenHeight;
     private Bitmap scaledbmp = null;
@@ -39,7 +41,7 @@ public class RenderBackground implements EntityBase{
 
     @Override
     public void Update(float _dt){
-        xPos -= _dt * 500;
+        xPos -= _dt * speed;
 
         if(xPos < -ScreenWidth)
         {

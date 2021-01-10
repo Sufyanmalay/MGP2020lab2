@@ -46,7 +46,7 @@ public class EntityPlayer implements EntityBase, Collidable
     {
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player_character); // works
         //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
-        spritesheet = new Sprite(bmp, 4, 5, 30);
+        spritesheet = new Sprite(bmp, 2, 5, 30);
         xPos = 525;
         yPos = 525;
         position = 2;
@@ -205,11 +205,21 @@ public class EntityPlayer implements EntityBase, Collidable
         if (_other.GetType() == "WallEntity")
         {
             MainGameSceneState.playerLives--;
-            //lives--;
+
+            // Reset game speed when player is hit
+            RenderBackground.speed = RenderBackground.baseSpeed;
+            EntityWall.xSpeed = EntityWall.xBaseSpeed;
+            EntityTrash.xSpeed = EntityTrash.xBaseSpeed;
+            MainGameSceneState.wallSpawnRate = MainGameSceneState.wallBaseSpawnRate;
+
             if (MainGameSceneState.playerLives <= 0)
             {
                 SetIsDone(true);
             }
+        }
+        if (_other.GetType() == "TrashEntity")
+        {
+            MainGameSceneState.playerScore += 10;
         }
     }
 }

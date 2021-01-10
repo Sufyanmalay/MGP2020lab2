@@ -3,6 +3,7 @@ package com.SIDM.MGP2020lab2;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Debug;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -15,7 +16,8 @@ public class EntityWall implements EntityBase, Collidable {
     private int chosenLane, screenWidth, screenHeight;
     private float xPos;
     private float yPos;
-    private float xBaseSpeed = 400.f;
+    public static float xBaseSpeed = 400.f;
+    public static float xSpeed = xBaseSpeed;
 
     private boolean isInit = false;
 
@@ -71,13 +73,14 @@ public class EntityWall implements EntityBase, Collidable {
     @Override
     public void Update (float _dt)
     {
-        xPos -=  xBaseSpeed * _dt;
+        xPos -=  xSpeed * _dt;
 
         // Delete offscreen
         if(xPos > screenWidth)
         {
             SetIsDone(true);
         }
+
 
     }
 
