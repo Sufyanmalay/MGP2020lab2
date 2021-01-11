@@ -47,7 +47,7 @@ public class EntityPlayer implements EntityBase, Collidable
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player_character); // works
         //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
         spritesheet = new Sprite(bmp, 2, 5, 30);
-        xPos = 525;
+        xPos = 400;
         yPos = 525;
         position = 2;
         isInit = true;
@@ -72,7 +72,7 @@ public class EntityPlayer implements EntityBase, Collidable
         {
             yPos = screenHeight / 3.f * 3.f - 175.f;
         }
-        xPos = 525;
+        xPos = xPos;
         if (!TouchManager.Instance.IsDown())
         {
             hasTouched = false;
@@ -83,7 +83,7 @@ public class EntityPlayer implements EntityBase, Collidable
             hasTouched = true;
             if (hasTouched)
             {
-                if (TouchManager.Instance.GetPosX() >= 0 && TouchManager.Instance.GetPosX() <= 525)
+                if (TouchManager.Instance.GetPosX() >= -100 && TouchManager.Instance.GetPosX() <= 625)
                 {
                     AudioManager.Instance.PlayAudio(R.raw.move, 1.0f, 1.0f); // move sound
                     if (TouchManager.Instance.GetPosY() >= 0 && TouchManager.Instance.GetPosY() <= 525)
@@ -211,6 +211,8 @@ public class EntityPlayer implements EntityBase, Collidable
             EntityWall.xSpeed = EntityWall.xBaseSpeed;
             EntityTrash.xSpeed = EntityTrash.xBaseSpeed;
             MainGameSceneState.wallSpawnRate = MainGameSceneState.wallBaseSpawnRate;
+            MainGameSceneState.playerScore = MainGameSceneState.playerScore / 2;
+            xPos = 300;
 
             if (MainGameSceneState.playerLives <= 0)
             {
@@ -219,7 +221,27 @@ public class EntityPlayer implements EntityBase, Collidable
         }
         if (_other.GetType() == "TrashEntity")
         {
-            MainGameSceneState.playerScore += 10;
+            if (xPos >= 650)
+            {
+                xPos = 650;
+            }
+            if (xPos == 300 || xPos == 350)
+            {
+                MainGameSceneState.playerScore += 5;
+            }
+            else if (xPos == 400 || xPos == 450)
+            {
+                MainGameSceneState.playerScore += 10;
+            }
+            else if (xPos == 500 || xPos == 550)
+            {
+                MainGameSceneState.playerScore += 15;
+            }
+            else if (xPos == 600 || xPos == 650)
+            {
+                MainGameSceneState.playerScore += 20;
+            }
+            xPos += 50;
         }
     }
 }

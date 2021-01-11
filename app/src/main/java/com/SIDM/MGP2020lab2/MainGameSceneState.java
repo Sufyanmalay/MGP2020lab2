@@ -39,7 +39,7 @@ public class MainGameSceneState implements StateBase {
     //public static int playerScore = 0;
 
     private float regenTimer = 0.0f;
-    private float regenTimerMax = 5.0f;
+    private float regenTimerMax = 10.0f;
 
     private Bitmap bmpLives = null;
     private int screenWidth, screenHeight;
@@ -77,6 +77,7 @@ public class MainGameSceneState implements StateBase {
         // font
         myFont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/myFont.ttf");
 
+        AudioManager.Instance.PlayAudio(R.raw.music, 1.0f, 1.0f); // play music when game start
     }
 
     @Override
@@ -130,13 +131,20 @@ public class MainGameSceneState implements StateBase {
 
         // Pause the game
         if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())
+        {
+            AudioManager.Instance.ChangeVolume(R.raw.music, 0.4f, 0.4f); // decrease vol of music while paused
             return;
+        }
+        else
+        {
+            AudioManager.Instance.ChangeVolume(R.raw.music, 1.0f, 1.0f); // increase vol of music while playing
+        }
 
         if (playerLives != 3)
             regenTimer += _dt;
 
         trashTimer += _dt;
-        wallTimer += _dt;
+        wallTimer += _dt * 1.1;
         rampUpTimer += _dt;
 
         if (regenTimer >= regenTimerMax)
@@ -146,16 +154,16 @@ public class MainGameSceneState implements StateBase {
         }
         if (rampUpTimer >= rampUpMax)
         {
-            if (wallSpawnRate > 1.f)
-                wallSpawnRate -= 0.5f;
+            if (wallSpawnRate > 0.9f)
+                wallSpawnRate -= 0.6f;
 
-            if (EntityWall.xSpeed <= 800.f)
+            if (EntityWall.xSpeed <= 880.f)
             {
-                EntityWall.xSpeed += 100.f;
+                EntityWall.xSpeed += 110.f;
             }
-            if (RenderBackground.speed <= 800.f)
+            if (RenderBackground.speed <= 1000.f)
             {
-                RenderBackground.speed += 50.f;
+                RenderBackground.speed += 62.5f;
             }
             if (EntityTrash.xSpeed <= 800.f)
             {
