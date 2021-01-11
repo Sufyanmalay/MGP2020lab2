@@ -74,14 +74,17 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         else if (v == btn_about)
         {
             intent.setClass(this, Aboutmenu.class);
+            StateManager.Instance.ChangeState("Aboutmenu"); // Default is like a loading page
         }
         else if (v == btn_credits)
         {
-           intent.setClass(this, Creditsmenu.class);
+           intent.setClass(this, Highscore.class);
+            StateManager.Instance.ChangeState("Creditsmenu"); // Default is like a loading page
         }
         else if (v == btn_settings)
         {
            intent.setClass(this, Settingsmenu.class);
+            StateManager.Instance.ChangeState("Settingsmenu"); // Default is like a loading page
         }
         else if (v == btn_exit)
         {

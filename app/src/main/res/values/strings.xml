@@ -3,4 +3,6 @@
     <string name="start">Start</string>
     <string name="about">About</string>
     <string name="credits">Credits</string>
+    <string name="highscore">High Score</string>
+    <string name="facebook_app_id">405242620896175</string>
 </resources>

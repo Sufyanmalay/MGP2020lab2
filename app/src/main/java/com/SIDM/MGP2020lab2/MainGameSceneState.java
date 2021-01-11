@@ -1,5 +1,6 @@
 package com.SIDM.MGP2020lab2;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -73,7 +74,6 @@ public class MainGameSceneState implements StateBase {
 
         // font
         myFont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/myFont.ttf");
-
     }
 
     @Override
@@ -240,6 +240,21 @@ public class MainGameSceneState implements StateBase {
 
         EntityManager.Instance.Update(_dt);
         renderTextEntity.Update(_dt);
+
+        // When player dies, update high score
+        // Change gamestate
+        if (playerLives <= 0)
+        {
+            if (playerScore > GameSystem.Instance.GetIntFromSave("Score"))
+            {
+                int tempScore = 0;
+                tempScore = MainGameSceneState.playerScore;
+                tempScore = GameSystem.Instance.GetIntFromSave("Score");
+                GameSystem.Instance.SaveEditBegin();
+                GameSystem.Instance.SetIntInSave("Score", MainGameSceneState.playerScore);
+                GameSystem.Instance.SaveEditEnd();
+            }
+        }
     }
 }
 

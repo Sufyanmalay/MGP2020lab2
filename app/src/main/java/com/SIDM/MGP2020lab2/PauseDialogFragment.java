@@ -6,8 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.Intent;
-
 
 public class PauseDialogFragment extends DialogFragment {
     public static boolean IsShown = false;
@@ -16,6 +14,8 @@ public class PauseDialogFragment extends DialogFragment {
     public Dialog onCreateDialog (Bundle savedInstanceState)
     {
         IsShown = true;
+
+        GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Resume game or exit to main menu?");
@@ -26,6 +26,7 @@ public class PauseDialogFragment extends DialogFragment {
                 {
                     // Resume the game
                     GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
+                    IsShown = false;
                 }
             }
         );
@@ -36,15 +37,12 @@ public class PauseDialogFragment extends DialogFragment {
                 public void onClick(DialogInterface dialog, int which)
                 {
                     StateManager.Instance.ChangeState("Mainmenu");
+                    IsShown = false;
                 }
             }
         );
 
-        GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
-        //Create = make the pop up alert dialog based on what you configure
-        AlertDialog alert = builder.create();
-        alert.setCanceledOnTouchOutside(false);
-        return alert;
+        return builder.create();
     }
 
     @Override
