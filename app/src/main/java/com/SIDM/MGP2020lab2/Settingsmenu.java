@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Intent;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
 // Created by TanSiewLan2020
 
@@ -19,10 +22,12 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
 
     //Define buttons
     private ImageButton btn_back;
+    private Switch Switch2;
 
     @SuppressLint("WrongViewCast")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
 
         // Hide Title
@@ -33,6 +38,19 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.settingsmenu);
+
+        Switch2 = (Switch) findViewById ( R.id.switch2 );
+        Switch2.setChecked(true);
+        Boolean switchState = Switch2.isChecked();
+        if (switchState)
+        {
+            Splashpage.MusiC = true;
+        }
+        else
+        {
+            Splashpage.MusiC = false;
+        }
+        Switch2.setOnClickListener(this);
 
         btn_back = (ImageButton)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
@@ -47,15 +65,26 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
         // Intent = action to be performed.
         // Intent is an object provides runtime binding.
         // new instance of this object intent
-
+        String text = " ";
         Intent intent = new Intent();
         if (v == btn_back)
         {
+            //Splashpage.MusiC = false;
             intent.setClass(this, Mainmenu.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        else if (v == Switch2)
+        {
+            if (Switch2.isChecked())
+            {
+                Splashpage.MusiC = true;
+            }
+            else
+            {
+                Splashpage.MusiC = false;
+            }
+        }
     }
 
     @Override
@@ -71,7 +100,8 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
     }
 
     @Override
-    public void Update(float _dt) { }
+    public void Update(float _dt) {
+    }
 
     @Override
     public String GetName() {

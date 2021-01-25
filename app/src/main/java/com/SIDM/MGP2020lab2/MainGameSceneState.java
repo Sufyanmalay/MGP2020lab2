@@ -7,6 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.ToggleButton;
 
 import org.w3c.dom.Entity;
 
@@ -34,9 +37,6 @@ public class MainGameSceneState implements StateBase {
     private int tmpTrash = 0;
 
     private int laneNumber = 0;
-
-    //public static int playerLives = 3;
-    //public static int playerScore = 0;
 
     private float regenTimer = 0.0f;
     private float regenTimerMax = 10.0f;
@@ -77,7 +77,15 @@ public class MainGameSceneState implements StateBase {
         // font
         myFont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/myFont.ttf");
 
-        AudioManager.Instance.PlayAudio(R.raw.music, 1.0f, 1.0f); // play music when game start
+        if (Splashpage.MusiC)
+        {
+            Splashpage.vol = 1.0f;
+        }
+        else
+        {
+            Splashpage.vol = 0.0f;
+        }
+        AudioManager.Instance.PlayAudio(R.raw.music, Splashpage.vol, Splashpage.vol); // play music when game start
     }
 
     @Override
@@ -132,12 +140,28 @@ public class MainGameSceneState implements StateBase {
         // Pause the game
         if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())
         {
-            AudioManager.Instance.ChangeVolume(R.raw.music, 0.4f, 0.4f); // decrease vol of music while paused
+            if (Splashpage.MusiC)
+            {
+                Splashpage.vol = 0.4f;
+            }
+            else
+            {
+                Splashpage.vol = 0.0f;
+            }
+            AudioManager.Instance.ChangeVolume(R.raw.music, Splashpage.vol, Splashpage.vol); // decrease vol of music while paused
             return;
         }
         else
         {
-            AudioManager.Instance.ChangeVolume(R.raw.music, 1.0f, 1.0f); // increase vol of music while playing
+            if (Splashpage.MusiC)
+            {
+                Splashpage.vol = 1.0f;
+            }
+            else
+            {
+                Splashpage.vol = 0.0f;
+            }
+            AudioManager.Instance.ChangeVolume(R.raw.music, Splashpage.vol, Splashpage.vol); // increase vol of music while playing
         }
 
         if (playerLives != 3)

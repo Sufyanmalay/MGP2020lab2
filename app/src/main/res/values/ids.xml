@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="btn_back" type="id" />
+    <item name="btn_vol" type="id"/>
     <item name="btn_about" type="id" />
     <item name="btn_credits" type="id" />
     <item name="btn_exit" type="id" />
+    <item name="switch2" type="id"/>
 </resources>

@@ -15,7 +15,8 @@ public class Splashpage extends Activity
 {
     protected boolean _active = true;
     protected int _splashTime = 5000;
-
+    public static boolean MusiC = true;
+    public static float vol = 0.0f;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
