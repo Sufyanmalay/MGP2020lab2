@@ -16,4 +16,12 @@
         android:layout_marginEnd="670dp"
         android:background="@drawable/back" />
 
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Music"
+        android:translationX="375dp"
+        android:translationY="250dp" />
+
 </RelativeLayout>

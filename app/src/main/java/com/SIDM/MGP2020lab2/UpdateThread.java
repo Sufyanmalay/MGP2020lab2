@@ -22,6 +22,7 @@ public class UpdateThread extends Thread {
         holder = _view.getHolder();
 
 		  // Manage your managers if there is any
+        AudioManager.Instance.Init(_view); // set the audio
         StateManager.Instance.Init(_view);
         EntityManager.Instance.Init(_view);
         GameSystem.Instance.Init(_view);

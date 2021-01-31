@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class AudioManager
 {
     public final static AudioManager Instance = new AudioManager();
+    public static final int STREAM_MUSIC = 0;
 
     //Still a singleton
     private SurfaceView view = null;
@@ -54,6 +55,16 @@ public class AudioManager
             MediaPlayer curr = MediaPlayer.create(view.getContext(), _id);
             audioMap.put(_id, curr); //User can change the background music and sfx manually here too
             curr.start();
+        }
+    }
+
+    public void ChangeVolume(int _id, float _volumeLeft, float _volumeRight) // change vol of music when paused
+    {
+        if (audioMap.containsKey(_id)) //Audio clip is present
+        {
+            //Clip is not NULL
+            MediaPlayer curr = audioMap.get(_id);
+            curr.setVolume(_volumeLeft, _volumeRight); //Set the volume of the clip (Left and right volume)
         }
     }
 
