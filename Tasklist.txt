@@ -1,0 +1,76 @@
+---------------------------------------------------------
+		  ( ASSIGNMENT 1 )
+---------------------------------------------------------
+
+=========================================
+           Gabriel's Task
+=========================================
+
+Player
+- Player Lives
+- Player Score
+- Player Movement
+- Player Sprite Animation
+
+Menus
+- About Menu
+
+Gameplay
+- End Screen
+
+=========================================
+            Sufyan's Task
+=========================================
+
+Menus
+- Main menu
+- Credits menu
+- Settings Menu
+- Splash Page
+- Settings Menu (Empty)
+
+Gameplay
+- Ramp Up System
+- RNG Spawning 
+	- Trash Collectable
+	- Wall Obstacles
+- Player Regen
+- Moving Background
+
+In-Game UI
+- Pause Button
+- Player Lives
+- Player Score
+---------------------------------------------------------
+		 ( END OF ASSIGNMENT 1 )
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+		  ( ASSIGNMENT 2 )
+---------------------------------------------------------
+
+=========================================
+           Gabriel's Task
+=========================================
+
+Game Audio and sfx
+
+=========================================
+            Sufyan's Task
+=========================================
+
+Highscore
+Social Media
+
+=========================================
+    Task that are not done/allocated 
+=========================================
+- Feedbacks 
+- Settings
+- Replay Game
+
+
+---------------------------------------------------------
+		 ( END OF ASSIGNMENT 2 )
+---------------------------------------------------------

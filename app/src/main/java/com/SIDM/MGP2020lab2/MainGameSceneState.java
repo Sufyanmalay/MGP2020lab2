@@ -8,9 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
-
-import org.w3c.dom.Entity;
-
 import java.util.Random;
 
 // Created by TanSiewLan2020
@@ -56,6 +53,8 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void OnEnter(SurfaceView _view)
     {
+        // Reset's game whenever player enters
+        ResetGame();
         // Example to include another Renderview for Pause Button
         RenderBackground.Create();
         EntityPlayer.Create();
@@ -74,6 +73,15 @@ public class MainGameSceneState implements StateBase {
 
         // font
         myFont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/myFont.ttf");
+    }
+
+    public void ResetGame() {
+        playerLives = 3;
+        playerScore = 0;
+
+        EntityWall.xSpeed = EntityWall.xBaseSpeed;
+        EntityTrash.xSpeed = EntityTrash.xBaseSpeed;
+        RenderBackground.speed = RenderBackground.baseSpeed;
     }
 
     @Override
@@ -102,16 +110,31 @@ public class MainGameSceneState implements StateBase {
         scoreDisplay.setTextSize(100);
         String text = "Score: ";
 
+        Paint scoreCount2 = new Paint();
+        scoreCount2.setARGB(255, 0, 255, 0);
+        scoreCount2.setStrokeWidth(150);
+        scoreCount2.setTypeface(myFont);
+        scoreCount2.setTextSize(100);
+
+        Paint scoreToBeat = new Paint();
+        scoreToBeat.setARGB(255, 0, 255, 0);
+        scoreToBeat.setStrokeWidth(200);
+        scoreToBeat.setTypeface(myFont);
+        scoreToBeat.setTextSize(100);
+        String text1 = "Score to beat: ";
+
         // Score UI
-        _canvas.drawText(text, screenWidth / 2 - 200.f, 200, scoreDisplay);
-        _canvas.drawText(String.valueOf(playerScore), screenWidth / 2 + 50.f,  200, scoreCount);
+        _canvas.drawText(text, 100.f, screenHeight - 200.f, scoreDisplay);
+        _canvas.drawText(String.valueOf(playerScore), 350.f,  screenHeight - 200.f, scoreCount);
+
+        _canvas.drawText(text1, 100.f, screenHeight - 100.f, scoreToBeat);
+        _canvas.drawText(String.valueOf(GameSystem.Instance.GetIntFromSave("Score")), 600.f,  screenHeight - 100.f, scoreCount2);
 
         // Lives UI
         for (int i = 0; i < playerLives; ++i)
         {
             _canvas.drawBitmap(bmpLives, screenWidth - 200.f - (i * 175.f), screenHeight - 200.f,null);
         }
-
     }
 
     @Override
@@ -158,48 +181,8 @@ public class MainGameSceneState implements StateBase {
             rampUpTimer = 0.f;
         }
 
-        // Spawning of trash
-        if (trashTimer > trashSpawnRate)
-        {
-            // Further randomise spawning of trash
-            // trash should not spawn in the same lane repeatedly
-            //
-            // eg.       (1, 1, 2, 2, 3, 3, 3, 2) X
-            // should be (1, 2, 1, 3, 2, 3, 1, 3)
 
-            laneNumber = ranGen.nextInt(3);
-            trashArray[tmpTrash] = laneNumber;
-
-            if (tmpTrash > 0)
-            {
-                // Check tmp value with previous tmp value in the array
-                // if the same, re-roll
-                while (trashArray[tmpTrash] == trashArray[tmpTrash - 1])
-                {
-                    laneNumber = ranGen.nextInt(3);
-                    trashArray[tmpTrash] = laneNumber;
-                }
-            }
-
-            ++tmpTrash;
-
-            // Reset array once full
-            if (tmpTrash > 2)
-            {
-                for (int i = 0; i < trashArray.length; ++i)
-                {
-                    trashArray[i] = 0;
-                }
-
-                trashArray[0] = laneNumber;
-                tmpTrash = 1;
-            }
-
-            EntityTrash.Create(1, laneNumber);
-            trashTimer = 0.0f;
-        }
-
-        // Spawning of wall
+        // Spawning of wall & trash
         if (wallTimer > wallSpawnRate)
         {
             // Further randomise spawning of walls
@@ -209,32 +192,128 @@ public class MainGameSceneState implements StateBase {
             // should be (1, 2, 1, 3, 2, 3, 1, 3)
 
             laneNumber = ranGen.nextInt(3);
-            wallArray[tmpWall] = laneNumber;
+            int rngSpawn2Walls = ranGen.nextInt(2) + 1;
+            int rng = ranGen.nextInt(2) + 1;
 
-            if (tmpWall > 0)
+            // Spawns 2 walls
+            if (rngSpawn2Walls == 1)
             {
-                while (wallArray[tmpWall] == wallArray[tmpWall - 1])
+                // Top wall
+                if (laneNumber == 0)
                 {
-                    laneNumber = ranGen.nextInt(3);
-                    wallArray[tmpWall] = laneNumber;
+                    EntityWall.Create(1, laneNumber);
+
+                    if (rng == 1)
+                    {
+                        EntityWall.Create(1, laneNumber + 1);
+                        EntityTrash.Create(1, laneNumber + 2);
+                    }
+                    else
+                    {
+                        EntityTrash.Create(1, laneNumber + 1);
+                        EntityWall.Create(1, laneNumber + 2);
+                    }
+                }
+                // Middle wall
+                else if (laneNumber == 1)
+                {
+                    EntityWall.Create(1, laneNumber);
+
+                    if (rng == 1)
+                    {
+                        EntityTrash.Create(1, laneNumber - 1);
+                        EntityWall.Create(1, laneNumber + 1);
+                    }
+                    else
+                    {
+                        EntityWall.Create(1, laneNumber - 1);
+                        EntityTrash.Create(1, laneNumber + 1);
+                    }
+                }
+                // Bottom wall
+                else if (laneNumber == 2)
+                {
+                    EntityWall.Create(1, laneNumber);
+
+                    if (rng == 1)
+                    {
+                        EntityWall.Create(1, laneNumber - 1);
+                        EntityTrash.Create(1, laneNumber - 2);
+                    }
+                    else
+                    {
+                        EntityTrash.Create(1, laneNumber - 1);
+                        EntityWall.Create(1, laneNumber - 2);
+                    }
+                }
+            }
+            // Spawns only 1 wall
+            else
+            {
+                wallArray[tmpWall] = laneNumber;
+
+                if (tmpWall > 0)
+                {
+                    while (wallArray[tmpWall] == wallArray[tmpWall - 1])
+                    {
+                        laneNumber = ranGen.nextInt(3);
+                        wallArray[tmpWall] = laneNumber;
+                    }
+                }
+
+                ++tmpWall;
+
+                // Reset array once full
+                if (tmpWall > 2)
+                {
+                    for (int i = 0; i < wallArray.length; ++i)
+                    {
+                        wallArray[i] = 0;
+                    }
+
+                    wallArray[0] = laneNumber;
+                    tmpWall = 1;
+                }
+
+                EntityWall.Create(1, laneNumber);
+
+                int ran = ranGen.nextInt(2);
+
+                if (laneNumber == 0)
+                {
+                    if (rng == 0)
+                    {
+                        EntityTrash.Create(1,laneNumber + 1);
+                    }
+                    else
+                    {
+                        EntityTrash.Create(1,laneNumber + 2);
+                    }
+                }
+                else if (laneNumber == 1)
+                {
+                    if (rng == 0)
+                    {
+                        EntityTrash.Create(1,laneNumber + 1);
+                    }
+                    else
+                    {
+                        EntityTrash.Create(1,laneNumber - 1);
+                    }
+                }
+                else
+                {
+                    if (rng == 0)
+                    {
+                        EntityTrash.Create(1,laneNumber - 1);
+                    }
+                    else
+                    {
+                        EntityTrash.Create(1,laneNumber - 2);
+                    }
                 }
             }
 
-            ++tmpWall;
-
-            // Reset array once full
-            if (tmpWall > 2)
-            {
-                for (int i = 0; i < wallArray.length; ++i)
-                {
-                    wallArray[i] = 0;
-                }
-
-                wallArray[0] = laneNumber;
-                tmpWall = 1;
-            }
-
-            EntityWall.Create(1, laneNumber);
             wallTimer = 0.0f;
         }
 
@@ -247,11 +326,9 @@ public class MainGameSceneState implements StateBase {
         {
             if (playerScore > GameSystem.Instance.GetIntFromSave("Score"))
             {
-                int tempScore = 0;
-                tempScore = MainGameSceneState.playerScore;
-                tempScore = GameSystem.Instance.GetIntFromSave("Score");
+                int tempScore = playerScore;
                 GameSystem.Instance.SaveEditBegin();
-                GameSystem.Instance.SetIntInSave("Score", MainGameSceneState.playerScore);
+                GameSystem.Instance.SetIntInSave("Score", tempScore);
                 GameSystem.Instance.SaveEditEnd();
             }
         }

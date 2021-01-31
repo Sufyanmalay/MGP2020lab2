@@ -15,27 +15,28 @@ public class EndConfirmDialogFragment extends DialogFragment
     public Dialog onCreateDialog (Bundle savedInstanceState)
     {
         IsShown = true;
-
-        Intent intent = new Intent();
+        GameSystem.Instance.SetIsPaused(true);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("End Screen");
-        builder.setMessage("You Died! Your Final Score is : " + MainGameSceneState.playerScore);
-        builder.setPositiveButton("Exit Game", new DialogInterface.OnClickListener()
+        builder.setTitle("End Screen")
+        .setMessage("You Died! Your Final Score is : " + MainGameSceneState.playerScore)
+        .setPositiveButton("Exit Game", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
                         StateManager.Instance.ChangeState("Mainmenu");
+                        GameSystem.Instance.SetIsPaused( false );
+                        IsShown = false;
                     }
                 }
         );
 
-        GameSystem.Instance.SetIsEnd(!GameSystem.Instance.GetIsEnd());
+        //GameSystem.Instance.SetIsEnd(!GameSystem.Instance.GetIsEnd());
         //Create = make the pop up alert dialog based on what you configure
         AlertDialog alert = builder.create();
         alert.setCanceledOnTouchOutside(false);
-        return alert;
+        return builder.create();
     }
 
     @Override

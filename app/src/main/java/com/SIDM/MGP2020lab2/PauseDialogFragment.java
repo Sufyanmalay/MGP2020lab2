@@ -36,6 +36,7 @@ public class PauseDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
+                    GameSystem.Instance.SetIsPaused((false));
                     StateManager.Instance.ChangeState("Mainmenu");
                     IsShown = false;
                 }

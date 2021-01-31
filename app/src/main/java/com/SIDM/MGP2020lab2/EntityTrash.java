@@ -16,7 +16,7 @@ public class EntityTrash implements EntityBase , Collidable {
     private float xPos;
     private float yPos;
 
-    public static float xBaseSpeed = 200.f;
+    public static float xBaseSpeed = 400.f;
     public static float xSpeed = xBaseSpeed;
 
     private boolean isInit = false;

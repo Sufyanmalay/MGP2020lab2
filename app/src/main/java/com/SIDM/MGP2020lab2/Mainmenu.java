@@ -3,6 +3,7 @@ package com.SIDM.MGP2020lab2;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,29 +64,32 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
         // Intent = action to be performed.
         // Intent is an object provides runtime binding.
         // new instance of this object intent
-
         Intent intent = new Intent();
+
         if (v == btn_start)
         {
             // intent --> to set to another class which another page or screen that we are launching.
             intent.setClass(this, GamePage.class);
- 				 StateManager.Instance.ChangeState("Default"); // Default is like a loading page
+ 				 StateManager.Instance.ChangeState("MainGame");
         }
         else if (v == btn_about)
         {
             intent.setClass(this, Aboutmenu.class);
-            StateManager.Instance.ChangeState("Aboutmenu"); // Default is like a loading page
+            StateManager.Instance.ChangeState("Aboutmenu");
         }
         else if (v == btn_credits)
         {
-           intent.setClass(this, Highscore.class);
-            StateManager.Instance.ChangeState("Creditsmenu"); // Default is like a loading page
+           intent.setClass(this, Creditsmenu.class);
+            StateManager.Instance.ChangeState("Creditsmenu");
         }
         else if (v == btn_settings)
         {
            intent.setClass(this, Settingsmenu.class);
-            StateManager.Instance.ChangeState("Settingsmenu"); // Default is like a loading page
+            StateManager.Instance.ChangeState("Settingsmenu");
         }
+        //else if (v == btn_highscore)
+        //{
+        //}
         else if (v == btn_exit)
         {
             System.exit(0);
@@ -109,7 +113,7 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
 	
     @Override
     public void Update(float _dt) {
-
+        System.out.println(123);
     }
 
     @Override

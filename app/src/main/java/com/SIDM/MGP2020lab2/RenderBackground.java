@@ -82,7 +82,4 @@ public class RenderBackground implements EntityBase{
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_BACKGROUND);
         return result;
     }
-
-
-
 }

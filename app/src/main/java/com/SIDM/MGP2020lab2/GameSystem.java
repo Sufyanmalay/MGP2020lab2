@@ -8,13 +8,15 @@ import android.view.SurfaceView;
 
 public class GameSystem {
     public final static GameSystem Instance = new GameSystem();
-    public static final String SHARED_PREF_IDEA = "GameSaveFile";
+    public static final String SHARED_PREF_ID = "GameSaveFile";
 
     // Game stuff
     private boolean isPaused = false;
     private boolean isEnd = false;
     SharedPreferences sharedPref = null;
     SharedPreferences.Editor editor = null;
+
+    int newHighscore;
 
     // Singleton Pattern : Blocks others from creating
     private GameSystem()
@@ -28,7 +30,7 @@ public class GameSystem {
     public void Init(SurfaceView _view)
     {
         // Get our shared pref
-        sharedPref = GamePage.Instance.getSharedPreferences(SHARED_PREF_IDEA,0);
+        sharedPref = GamePage.Instance.getSharedPreferences(SHARED_PREF_ID,0);
 
         // We will add all of our states into the state manager here!
         StateManager.Instance.AddState(new Mainmenu());
@@ -36,7 +38,6 @@ public class GameSystem {
         StateManager.Instance.AddState(new Creditsmenu());
         StateManager.Instance.AddState(new Settingsmenu());
         StateManager.Instance.AddState(new MainGameSceneState());
-        StateManager.Instance.AddState(new Highscore());
     }
 
     public void SetIsPaused(boolean _newIsPaused)
@@ -81,11 +82,12 @@ public class GameSystem {
         if (editor == null)
             return;
 
-        editor.putInt(_key,_value);
+        newHighscore = _value;
+        editor.putInt(_key, newHighscore);
     }
 
     public int GetIntFromSave(String _key)
     {
-        return sharedPref.getInt(_key,10);
+        return sharedPref.getInt(_key, newHighscore);
     }
 }

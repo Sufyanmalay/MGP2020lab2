@@ -24,6 +24,18 @@
         android:layout_marginEnd="14dp"
         android:background="@drawable/settings" />
 
+    <!--
+    <ImageButton
+        android:id="@id/btn_highscore"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="255dp"
+        android:layout_marginEnd="200dp"
+        android:background="@drawable/com_facebook_button_icon" />
+    -->
+
     <ImageButton
         android:id="@+id/btn_exit"
         android:layout_width="50dp"
