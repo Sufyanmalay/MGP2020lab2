@@ -73,6 +73,16 @@ public class MainGameSceneState implements StateBase {
 
         // font
         myFont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/myFont.ttf");
+
+        if (Splashpage.MusiC)
+        {
+            Splashpage.vol = 0.6f;
+        }
+        else
+        {
+            Splashpage.vol = 0.0f;
+        }
+        AudioManager.Instance.PlayAudio(R.raw.music, Splashpage.vol, Splashpage.vol); // play music when game start
     }
 
     public void ResetGame() {
@@ -139,6 +149,29 @@ public class MainGameSceneState implements StateBase {
 
     @Override
     public void Update(float _dt) {
+
+        // Music
+        if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())
+        {
+            if (Splashpage.MusiC)
+            {
+                Splashpage.vol = 0.4f;
+            }
+            else
+            {
+                Splashpage.vol = 0.0f;
+            }
+            AudioManager.Instance.ChangeVolume(R.raw.music, Splashpage.vol, Splashpage.vol); // decrease vol of music while paused
+            return;
+        }
+        else {
+            if (Splashpage.MusiC) {
+                Splashpage.vol = 0.8f;
+            } else {
+                Splashpage.vol = 0.0f;
+            }
+            AudioManager.Instance.ChangeVolume(R.raw.music, Splashpage.vol, Splashpage.vol); // increase vol of music while playing
+        }
 
         // Pause the game
         if (GameSystem.Instance.GetIsPaused() || GameSystem.Instance.GetIsEnd())

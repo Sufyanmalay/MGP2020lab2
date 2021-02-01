@@ -15,7 +15,6 @@ public class EndConfirmDialogFragment extends DialogFragment
     public Dialog onCreateDialog (Bundle savedInstanceState)
     {
         IsShown = true;
-        GameSystem.Instance.SetIsPaused(true);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("End Screen")
@@ -25,6 +24,9 @@ public class EndConfirmDialogFragment extends DialogFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        AudioManager.Instance.StopAudio(R.raw.music); // end music
+                        //AudioManager.Instance.PlayAudio(R.raw.buttontwo, 1.0f, 1.0f); // button sound
+                        Splashpage.vol = 0.0f;
                         StateManager.Instance.ChangeState("Mainmenu");
                         GameSystem.Instance.SetIsPaused( false );
                         IsShown = false;

@@ -47,7 +47,7 @@ public class EntityPlayer implements EntityBase, Collidable
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.player_character); // works
         //bmp = ResourceManager.Instance.GetBitmap(R.drawable.ship2_4); --> doesn't work, crashes
         spritesheet = new Sprite(bmp, 2, 5, 30);
-        xPos = 525;
+        xPos = 400;
         yPos = 525;
         position = 2;
         isInit = true;
@@ -72,7 +72,7 @@ public class EntityPlayer implements EntityBase, Collidable
         {
             yPos = screenHeight / 3.f * 3.f - 175.f;
         }
-        xPos = 525;
+
         if (!TouchManager.Instance.IsDown())
         {
             hasTouched = false;
@@ -210,6 +210,10 @@ public class EntityPlayer implements EntityBase, Collidable
             EntityWall.xSpeed = EntityWall.xBaseSpeed;
             EntityTrash.xSpeed = EntityTrash.xBaseSpeed;
             MainGameSceneState.wallSpawnRate = MainGameSceneState.wallBaseSpawnRate;
+            MainGameSceneState.playerScore = MainGameSceneState.playerScore / 2;
+
+            if (xPos > 400)
+                xPos -= 100;
 
             if (MainGameSceneState.playerLives <= 0)
             {
@@ -218,7 +222,27 @@ public class EntityPlayer implements EntityBase, Collidable
         }
         else if (_other.GetType() == "TrashEntity")
         {
-            MainGameSceneState.playerScore += 2;
+            if (xPos >= 1000)
+            {
+                xPos = 1000;
+            }
+            if (xPos <= 400)
+            {
+                MainGameSceneState.playerScore += 5;
+            }
+            else if (xPos <= 600)
+            {
+                MainGameSceneState.playerScore += 10;
+            }
+            else if (xPos <= 800)
+            {
+                MainGameSceneState.playerScore += 15;
+            }
+            else if (xPos <= 1000)
+            {
+                MainGameSceneState.playerScore += 20;
+            }
+            xPos += 100;
         }
     }
 }

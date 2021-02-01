@@ -42,6 +42,7 @@ public class Settingsmenu extends Activity implements OnClickListener, StateBase
         Switch2 = (Switch) findViewById ( R.id.switch2 );
         Switch2.setChecked(true);
         Boolean switchState = Switch2.isChecked();
+
         if (switchState)
         {
             Splashpage.MusiC = true;
